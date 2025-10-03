@@ -330,16 +330,15 @@ function ContactFormSend({ gestions, email, phone }) {
         <input name="tel" value={form.tel} onChange={onChange} className="p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-400" placeholder="Téléphone" />
         <input name="mail" value={form.mail} onChange={onChange} className="p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-400" placeholder="Votre email *" />
         {/* Prestations (checkbox) */}
-        <div className="grid grid-cols-1 gap-2">
-          <label className="text-sm sm:text-base text-gray-300 font-semibold">Prestations</label>
-          <div className="flex items-center gap-6 pl-2">
-            <label className="flex items-center gap-2 text-sm sm:text-base text-gray-200">
-              <input name="presentiel" checked={form.presentiel} onChange={onChange} type="checkbox" className="w-5 h-5 accent-[#FF1493]" /> Présentiel
-            </label>
-            <label className="flex items-center gap-2 text-sm sm:text-base text-gray-200">
-              <input name="distance" checked={form.distance} onChange={onChange} type="checkbox" className="w-5 h-5 accent-[#FF1493]" /> À distance
-            </label>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label className="flex items-center gap-2 w-full p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white">
+            <input type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
+            <span>Présentiel</span>
+          </label>
+          <label className="flex items-center gap-2 w-full p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white">
+            <input type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
+            <span>À distance</span>
+          </label>
         </div>
         {/* Sélecteur lié à gestions (desc[1], desc[2], ...) */}
         <select name="prestation" value={form.prestation} onChange={onChange} className="p-3 rounded-xl bg-[#001A4A]/80 text-white">
