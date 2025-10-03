@@ -16,7 +16,7 @@ const DATA = {
       "J’accompagne les dirigeants de TPE & PME en France pour transformer leurs blocages d’organisation, de trésorerie et de litiges en leviers de croissance.",
     email: "oc.conseilssolutions@gmail.com",
     phone: "06 67 65 60 12",
-    logoSrc: "/logo.svg",
+    logoSrc: "/Logo.PNG",
   },
   problems: [
     { icon: BarChart3, text: "Difficultés de trésorerie" },
