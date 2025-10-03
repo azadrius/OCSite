@@ -25,9 +25,10 @@ const DATA = {
     { icon: Users, text: "Isolement professionnel" },
   ],
   offers: [
-    { name: "Essentielle", price: "750 € HT/mois", desc: "10h / mois de gestion selon vos besoins", details: [] },
-    { name: "Signature", price: "1100 € HT/mois", desc: "15h / mois + gestion financière avancée", details: [] },
-    { name: "Prestige", price: "1950 € HT/mois", desc: "30h / mois + gestion de litiges et trésorerie", details: [] },
+    { name: "Lignée Essentielle", price: "", desc: "8h / mois de gestion selon vos besoins", details: [] },
+    { name: "Lignée Signature", price: "", desc: "15h / mois + gestion financière avancée", details: [] },
+    { name: "Lignée Prestige", price: "", desc: "30h / mois + gestion de litiges et trésorerie", details: [] },
+    { name: "Hors Lignée ", price: "", desc: "Tarification à l'heure", details: [] },
   ],
   gestions: [
     {
@@ -65,15 +66,7 @@ const DATA = {
         "Possibilité d’actions selon vos besoins...",
       ],
       etc: "*Uniquement dans lignée Prestige",
-    },
-    {
-      name: "Package",
-      desc: [
-        "Accompagnement mensuel (mission 3 mois minimum)",
-        "Forfait demi‑journalier (hors prestations ci‑dessus)",
-        "Forfait journalier (hors prestations ci‑dessus)",
-      ],
-    },
+    }
   ],
   keywords: `Accompagnement ; autonomie ; bilan ; budgétaire ; commercial ; conseil ; contrôle de gestion ; développement ; aide ; entrepreneurs ; finance ; kpis ; organisation ; outils ; performance ; problèmes ; prospection ; rh ; solutions ; tableaux de bord ; Micro entrepreneur ; Micro entreprise ; SAS ; SASU ; SARL ; EURL ; EIRL ; administratif ; bénéfices ; cessation de paiement ; conditions générales de vente ; courriers types ; croissance ; dirigeants ; dépôt de bilan ; entreprise générale ; externalisation ; gestion administrative ; gestion commerciale ; gestion du personnel ; gestion financière ; liquidation ; litiges ; phobie administrative ; pilotage ; procédure de sauvegarde ; prévisionnel ; redressement ; startup ; tableaux de bord rh ; tpe pme ; trésorerie ; Statut juridique ; accompagnement personnalisé ; accompagnement pme ; accompagnement transformation digitale ; administratif rh ; bras droit ; daf temps partagé ; documents internes ; entreprises en France ; externalisation administrative ; externalisation secrétariat ; gestion de trésorerie ; organisation administrative ; pme France ; prévisionnel financier ; relances clients ; simplification administrative ; structuration entreprise ; suivi administratif ; tableau de trésorerie ; valeur perçue ; accompagnement levée de fonds ; aide ; administrative ; indépendant ; audit flash ; automatisation facturation ; business plan professionnel ; croissance entreprise accompagnement ; directeur administratif et financier externalisé ; gestion contrats ; gestion prévisionnelle ; gestion saine ; litige expert comptable ; logiciels facturation ; mise en conformité entreprise ; mission sos ; optimisation trésorerie ; organisation interne ; outils gestion ; plan de financement startup ; plan de trésorerie simplifié ; raf externalisé ; reporting en ligne ; reporting financier mensuel ; réduction des coûts de gestion ; services aux entrepreneurs ; services complémentaires ; stratégie organisationnelle ; suivi factures fournisseurs ; sérénité financière ; éviter faillite ; Entreprise individuelle ; accompagnement dirigeants pme ; accompagnement gestion dirigeant isolé ; accompagnement personnalisé dirigeants ; accompagnement à distance ou sur site ; accompagner levée de fonds startup ; ambiance améliorée ; amélioration gestion interne ; amélioration performance organisationnelle ; appui administratif entrepreneurs ; automatisation administrative ; automatisation relances clients ;`
 };
