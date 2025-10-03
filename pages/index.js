@@ -66,7 +66,7 @@ const DATA = {
         "Possibilité d’actions selon vos besoins...",
       ],
       etc: "*Uniquement dans lignée Prestige",
-    }
+    },
   ],
   keywords: `Accompagnement ; autonomie ; bilan ; budgétaire ; commercial ; conseil ; contrôle de gestion ; développement ; aide ; entrepreneurs ; finance ; kpis ; organisation ; outils ; performance ; problèmes ; prospection ; rh ; solutions ; tableaux de bord ; Micro entrepreneur ; Micro entreprise ; SAS ; SASU ; SARL ; EURL ; EIRL ; administratif ; bénéfices ; cessation de paiement ; conditions générales de vente ; courriers types ; croissance ; dirigeants ; dépôt de bilan ; entreprise générale ; externalisation ; gestion administrative ; gestion commerciale ; gestion du personnel ; gestion financière ; liquidation ; litiges ; phobie administrative ; pilotage ; procédure de sauvegarde ; prévisionnel ; redressement ; startup ; tableaux de bord rh ; tpe pme ; trésorerie ; Statut juridique ; accompagnement personnalisé ; accompagnement pme ; accompagnement transformation digitale ; administratif rh ; bras droit ; daf temps partagé ; documents internes ; entreprises en France ; externalisation administrative ; externalisation secrétariat ; gestion de trésorerie ; organisation administrative ; pme France ; prévisionnel financier ; relances clients ; simplification administrative ; structuration entreprise ; suivi administratif ; tableau de trésorerie ; valeur perçue ; accompagnement levée de fonds ; aide ; administrative ; indépendant ; audit flash ; automatisation facturation ; business plan professionnel ; croissance entreprise accompagnement ; directeur administratif et financier externalisé ; gestion contrats ; gestion prévisionnelle ; gestion saine ; litige expert comptable ; logiciels facturation ; mise en conformité entreprise ; mission sos ; optimisation trésorerie ; organisation interne ; outils gestion ; plan de financement startup ; plan de trésorerie simplifié ; raf externalisé ; reporting en ligne ; reporting financier mensuel ; réduction des coûts de gestion ; services aux entrepreneurs ; services complémentaires ; stratégie organisationnelle ; suivi factures fournisseurs ; sérénité financière ; éviter faillite ; Entreprise individuelle ; accompagnement dirigeants pme ; accompagnement gestion dirigeant isolé ; accompagnement personnalisé dirigeants ; accompagnement à distance ou sur site ; accompagner levée de fonds startup ; ambiance améliorée ; amélioration gestion interne ; amélioration performance organisationnelle ; appui administratif entrepreneurs ; automatisation administrative ; automatisation relances clients ;`
 };
@@ -212,11 +212,6 @@ function Testimonials() {
       <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] mb-8 sm:mb-10 text-center">Ce que disent mes clients</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         {[
-          {
-            text:
-              "Océane est très compétente et impliquée. Elle a su régler un litige complexe avec professionnalisme et efficacité, ce qui m’a beaucoup soulagé et pérennisé mon entreprise.",
-            author: "Pierre Alexandre PARMENTIER",
-          },
           {
             text:
               "Excellente gestionnaire, professionnelle, réactive et toujours à l’écoute. Fiable, compétente et avec d'excellents conseils. Elle est un véritable soutien et un atout précieux pour mon entreprise.",
