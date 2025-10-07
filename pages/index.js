@@ -287,64 +287,143 @@ const Testimonials = () => (
  * Formulaire (mobile‑first & homogène)
  ************************/
 function ContactForm({ gestions, email, phone }) {
+  const [form, setForm] = React.useState({
+    nom: "", prenom: "", forme: "", societe: "", adresse: "", cp: "",
+    ville: "", tel: "", mail: "", presentiel: false, distance: false,
+    prestation: "", objet: "", message: "", website: "" // honeypot
+  });
+  const [sending, setSending] = React.useState(false);
+  const [ok, setOk] = React.useState(false);
+  const [err, setErr] = React.useState("");
+  const [startedAt] = React.useState(() => Date.now()); // anti-bot (délai)
+
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
+  };
+
+  const validate = () => {
+    if (!form.nom || !form.mail || !form.message) return "Nom, email et message sont requis.";
+    const emailOk = /[^\s@]+@[^\s@]+\.[^\s@]+/.test(form.mail);
+    if (!emailOk) return "Email invalide.";
+    if (form.website) return "Spam détecté.";                // honeypot
+    const elapsed = Date.now() - startedAt;
+    if (elapsed < 4000) return "Soumission trop rapide (anti-spam).";
+    return "";
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErr("");
+    setOk(false);
+
+    const v = validate();
+    if (v) { setErr(v); return; }
+
+    try {
+      setSending(true);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, startedAt }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        console.error("MAIL SEND ERROR:", data);
+        throw new Error(data?.error || "Une erreur est survenue");
+      }
+      setOk(true);
+      console.log("MAIL SENT OK");
+      // reset soft (garde mode/choix si tu veux)
+      setForm({
+        nom: "", prenom: "", forme: "", societe: "", adresse: "", cp: "",
+        ville: "", tel: "", mail: "", presentiel: false, distance: false,
+        prestation: "", objet: "", message: "", website: ""
+      });
+    } catch (e2) {
+      setErr(e2.message || "Erreur réseau");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="px-3 sm:px-6 py-12 sm:py-16 bg-gradient-to-r from-[#001A4A] via-[#00246C] to-[#001A4A] rounded-none sm:rounded-2xl sm:mx-3">
-      <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] mb-6 sm:mb-8 text-center">Contactez‑moi</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] mb-6 sm:mb-8 text-center">Contactez-moi</h2>
 
-      <form className="max-w-3xl mx-auto grid gap-3 sm:gap-4">
+      {/* États */}
+      {ok && (
+        <div className="max-w-3xl mx-auto mb-4 p-3 rounded-xl bg-green-600/20 text-green-200 border border-green-600">
+          Merci, votre message a bien été envoyé.
+        </div>
+      )}
+      {err && (
+        <div className="max-w-3xl mx-auto mb-4 p-3 rounded-xl bg-red-600/20 text-red-200 border border-red-600">
+          {err}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto grid gap-3 sm:gap-4">
         {/* Nom / Prénom */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Nom" />
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Prénom" />
+          <input name="nom" value={form.nom} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Nom *" />
+          <input name="prenom" value={form.prenom} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Prénom" />
         </div>
 
         {/* Forme juridique / Société */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Forme Juridique" />
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Société" />
+          <input name="forme" value={form.forme} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Forme Juridique" />
+          <input name="societe" value={form.societe} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Société" />
         </div>
 
         {/* Adresse */}
-        <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Adresse" />
+        <input name="adresse" value={form.adresse} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Adresse" />
 
-        {/* Code postal / Ville */}
+        {/* CP / Ville */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Code postal" />
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Ville" />
+          <input name="cp" value={form.cp} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Code postal" />
+          <input name="ville" value={form.ville} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Ville" />
         </div>
 
         {/* Téléphone / Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Téléphone" />
-          <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Votre email" />
+          <input name="tel" value={form.tel} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Téléphone" />
+          <input name="mail" value={form.mail} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Votre email *" />
         </div>
 
         {/* Prestations (checkbox) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <label className="flex items-center justify-between gap-3 w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white border border-[#0A2F80] focus-within:ring-2 focus-within:ring-[#FF1493]/60">
             <span className="text-sm sm:text-base">Présentiel</span>
-            <input type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
+            <input name="presentiel" checked={form.presentiel} onChange={onChange} type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
           </label>
           <label className="flex items-center justify-between gap-3 w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white border border-[#0A2F80] focus-within:ring-2 focus-within:ring-[#FF1493]/60">
             <span className="text-sm sm:text-base">À distance</span>
-            <input type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
+            <input name="distance" checked={form.distance} onChange={onChange} type="checkbox" className="w-5 h-5 accent-[#FF1493]" />
           </label>
         </div>
 
-        {/* Sélecteur lié à prestations */}
-        <select className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]">
+        {/* Sélecteur lié à gestions */}
+        <select name="prestation" value={form.prestation} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]">
           <option value="">Sélectionnez une prestation</option>
-          {DATA.prestations.flatMap((g, i) => g.desc.map((d, j) => (
+          {DATA.gestions?.flatMap((g, i) => g.desc.slice(1).map((d, j) => (
             <option key={`${i}-${j}`} value={`${g.name} - ${d}`}>{g.name} - {d}</option>
           )))}
         </select>
 
         {/* Objet / Message */}
-        <input className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Objet" />
-        <textarea className="w-full p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Demande" rows={5}></textarea>
+        <input name="objet" value={form.objet} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Objet" />
+        <textarea name="message" value={form.message} onChange={onChange} className="w-full p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white placeholder-gray-300 text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]" placeholder="Demande *" rows={5}></textarea>
 
-        <Button className="w-full sm:w-auto justify-center bg-[#FF1493] hover:bg-pink-600 text-[#00246C] font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg">
-          Envoyer
+        {/* Champ honeypot invisible (bots) */}
+        <input name="website" value={form.website} onChange={onChange} className="hidden" tabIndex={-1} autoComplete="off" />
+
+        <Button
+          type="submit"              // IMPORTANT pour soumettre !
+          disabled={sending}
+          className="w-full sm:w-auto justify-center bg-[#FF1493] hover:bg-pink-600 disabled:opacity-60 disabled:cursor-not-allowed text-[#00246C] font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg"
+        >
+          {sending ? "Envoi en cours…" : "Envoyer"}
         </Button>
       </form>
 
@@ -354,6 +433,7 @@ function ContactForm({ gestions, email, phone }) {
     </section>
   );
 }
+
 
 /********************
  * Page export
