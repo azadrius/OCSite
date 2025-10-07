@@ -406,7 +406,7 @@ function ContactForm({ gestions, email, phone }) {
         {/* Sélecteur lié à gestions */}
         <select name="prestation" value={form.prestation} onChange={onChange} className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]">
           <option value="">Sélectionnez une prestation</option>
-          {DATA.gestions?.flatMap((g, i) => g.desc.slice(1).map((d, j) => (
+          {DATA.prestations?.flatMap((g, i) => g.desc.map((d, j) => (
             <option key={`${i}-${j}`} value={`${g.name} - ${d}`}>{g.name} - {d}</option>
           )))}
         </select>
