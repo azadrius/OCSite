@@ -138,14 +138,16 @@ const SEOHiddenKeywords = ({ keywords }) => (
  * Sections (pass global mobile‑first)
  ************************/
 const SiteHeader = ({ logoSrc, enterprise }) => (
-  <header className="w-full py-6 sm:py-8 px-4 flex items-center justify-center sm:justify-start gap-4 sm:gap-8">
+    <header className="w-full py-6 sm:py-8 px-4 flex flex-col items-center justify-center text-center gap-4">
       <img
         src={logoSrc}
         alt="Logo entreprise"
         className="h-20 sm:h-28 object-contain"
       />
-    <h1 className="text-lg sm:text-2xl font-bold text-white tracking-wide">{enterprise}</h1>
-  </header>
+      <h1 className="text-2xl sm:text-4xl font-bold text-white tracking-wide">
+        {companyName}
+      </h1>
+    </header>
 );
 
 const Hero = ({ title, description }) => (
