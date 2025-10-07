@@ -109,7 +109,7 @@ const DATA = {
           {
             name: "Autre",
             desc: [
-              "A définir selon vos besoin",
+              "A définir selon vos besoins",
             ],
           },
         ],
