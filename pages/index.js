@@ -426,10 +426,6 @@ function ContactForm({ gestions, email, phone }) {
           {sending ? "Envoi en cours…" : "Envoyer"}
         </Button>
       </form>
-
-      <div className="text-center mt-6 sm:mt-8 text-gray-400 text-sm sm:text-base">
-        <p>{email} | {phone}</p>
-      </div>
     </section>
   );
 }
