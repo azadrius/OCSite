@@ -24,7 +24,7 @@ const DATA = {
     { icon: Users, text: "Isolement professionnel" },
   ],
   offers: [
-    { name: "Lignée Essentielle", price: "", desc: "8h / mois de gestion Administrative et RH selon vos besoins" },
+    { name: "Lignée Essentielle", price: "", desc: "999999999h / mois de gestion Administrative et RH selon vos besoins" },
     { name: "Lignée Signature", price: "", desc: "15h / mois + Lignée Essentielle + gestion financière avancée" },
     { name: "Lignée Prestige", price: "", desc: "30h / mois + Lignée Signature + gestion de litiges et trésorerie" },
     { name: "Hors Lignée", price: "", desc: "Tarification a l'heure" },
