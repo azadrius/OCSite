@@ -30,43 +30,89 @@ const DATA = {
     { name: "Hors Lignée", price: "", desc: "Tarification a l'heure" },
   ],
   gestions: [
-    {
-      name: "Gestion Administration/RH",
-      desc: [
-        "Création documents / formulaire interne ou courrier type",
-        "Mise en place & Refonte de l'organisation administrative ou RH",
-        "Gestion du personnel",
-        "Mission SOS / Gestion de Litiges*",
-        "Possibilité d'actions selon vos besoins.",
+        {
+          name: "Gestion Administration/RH",
+          desc: [
+            "Création documents / formulaire interne ou courrier type",
+            "Mise en place & Refonte de l'organisation administrative ou RH",
+            "Gestion du personnel",
+            "Mission SOS / Gestion de Litiges*",
+            "Possibilité d'actions selon vos besoins.",
+          ],
+          etc: "*Uniquement dans lignée Prestige",
+        },
+        {
+          name: "Gestion Commerciale",
+          desc: [
+            "Relances",
+            "Prospection",
+            "Mise en place de Conditions générale de vente ou d'intervention",
+            "Automatisation Facturation et Relances",
+            "Mission SOS / Gestion de Litiges*",
+            "Possibilité d'actions selon vos besoins...",
+          ],
+          etc: "*Uniquement dans lignée Prestige",
+        },
+        {
+          name: "Gestion Financière",
+          desc: [
+            "Élaboration de prévisionnels ou tableaux de bord KPIs",
+            "Révision des prix de vente (calcul prix plancher)",
+            "Pré‑Compta* : Accompagnement à la préparation du bilan",
+            "Audit Flash* avec Plans d’actions",
+            "Mission SOS / Gestion de Litiges*",
+            "Structuration levée de fonds*",
+            "Possibilité d’actions selon vos besoins...",
+          ],
+          etc: "*Uniquement dans lignée Prestige",
+        },
       ],
-      etc: "*Uniquement dans lignée Prestige",
-    },
-    {
-      name: "Gestion Commerciale",
-      desc: [
-        "Relances",
-        "Prospection",
-        "Mise en place de Conditions générale de vente ou d'intervention",
-        "Automatisation Facturation et Relances",
-        "Mission SOS / Gestion de Litiges*",
-        "Possibilité d'actions selon vos besoins...",
-      ],
-      etc: "*Uniquement dans lignée Prestige",
-    },
-    {
-      name: "Gestion Financière",
-      desc: [
-        "Élaboration de prévisionnels ou tableaux de bord KPIs",
-        "Révision des prix de vente (calcul prix plancher)",
-        "Pré‑Compta* : Accompagnement à la préparation du bilan",
-        "Audit Flash* avec Plans d’actions",
-        "Mission SOS / Gestion de Litiges*",
-        "Structuration levée de fonds*",
-        "Possibilité d’actions selon vos besoins...",
-      ],
-      etc: "*Uniquement dans lignée Prestige",
-    },
-  ],
+  prestations: [
+          {
+            name: "Lignée",
+            desc: [
+              "Essentielle",
+              "Signature",
+              "Prestige",
+            ],
+          },
+          {
+            name: "Gestion Administration/RH",
+            desc: [
+              "Création documents / formulaire interne ou courrier type",
+              "Mise en place & Refonte de l'organisation administrative ou RH",
+              "Gestion du personnel",
+              "Mission SOS / Gestion de Litiges",
+            ],
+          },
+          {
+            name: "Gestion Commerciale",
+            desc: [
+              "Relances",
+              "Prospection",
+              "Mise en place de Conditions générale de vente ou d'intervention",
+              "Automatisation Facturation et Relances",
+              "Mission SOS / Gestion de Litiges",
+            ],
+          },
+          {
+            name: "Gestion Financière",
+            desc: [
+              "Élaboration de prévisionnels ou tableaux de bord KPIs",
+              "Révision des prix de vente (calcul prix plancher)",
+              "Pré‑Compta : Accompagnement à la préparation du bilan",
+              "Audit Flash avec Plans d’actions",
+              "Mission SOS / Gestion de Litiges",
+              "Structuration levée de fonds",
+            ],
+          },
+          {
+            name: "Autre",
+            desc: [
+              "A définir selon vos besoin",
+            ],
+          },
+        ],
   keywords:
     `Accompagnement ; autonomie ; bilan ; budgétaire ; commercial ; conseil ; contrôle de gestion ; développement ; aide ; entrepreneurs ; finance ; kpis ; organisation ; outils ; performance ; problèmes ; prospection ; rh ; solutions ; tableaux de bord ; Micro entrepreneur ; Micro entreprise ; SAS ; SASU ; SARL ; EURL ; EIRL ; administratif ; bénéfices ; cessation de paiement ; conditions générales de vente ; courriers types ; croissance ; dirigeants ; dépôt de bilan ; entreprise générale ; externalisation ; gestion administrative ; gestion commerciale ; gestion du personnel ; gestion financière ; liquidation ; litiges ; phobie administrative ; pilotage ; procédure de sauvegarde ; prévisionnel ; redressement ; startup ; tableaux de bord rh ; tpe pme ; trésorerie ; Statut juridique ; accompagnement personnalisé ; accompagnement pme ; accompagnement transformation digitale ; administratif rh ; bras droit ; daf temps partagé ; documents internes ; entreprises en France ; externalisation administrative ; externalisation secrétariat ; gestion de trésorerie ; organisation administrative ; pme France ; prévisionnel financier ; relances clients ; simplification administrative ; structuration entreprise ; suivi administratif ; tableau de trésorerie ; valeur perçue ; accompagnement levée de fonds ; aide ; administrative ; indépendant ; audit flash ; automatisation facturation ; business plan professionnel ; croissance entreprise accompagnement ; directeur administratif et financier externalisé ; gestion contrats ; gestion prévisionnelle ; gestion saine ; litige expert comptable ; logiciels facturation ; mise en conformité entreprise ; mission sos ; optimisation trésorerie ; organisation interne ; outils gestion ; plan de financement startup ; plan de trésorerie simplifié ; raf externalisé ; reporting en ligne ; reporting financier mensuel ; réduction des coûts de gestion ; services aux entrepreneurs ; services complémentaires ; stratégie organisationnelle ; suivi factures fournisseurs ; sérénité financière ; éviter faillite ; Entreprise individuelle ; accompagnement dirigeants pme ; accompagnement gestion dirigeant isolé ; accompagnement personnalisé dirigeants ; accompagnement à distance ou sur site ; accompagner levée de fonds startup ; ambiance améliorée ; amélioration gestion interne ; amélioration performance organisationnelle ; appui administratif entrepreneurs ; automatisation administrative ; automatisation relances clients ;`,
 };
@@ -206,7 +252,7 @@ function GestionCarousel({ gestions }) {
 
 const GestionSliderSection = ({ gestions }) => (
   <section className="px-3 sm:px-6 py-10 sm:py-16 max-w-5xl mx-auto">
-    <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] text-center mb-6 sm:mb-8">Domaines de gestion</h2>
+    <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] text-center mb-6 sm:mb-8">Mes Prestations</h2>
     <GestionCarousel gestions={gestions} />
   </section>
 );
@@ -279,10 +325,10 @@ function ContactForm({ gestions, email, phone }) {
           </label>
         </div>
 
-        {/* Sélecteur lié à gestions */}
+        {/* Sélecteur lié à prestations */}
         <select className="w-full min-h-12 p-3 sm:p-4 rounded-xl bg-[#001A4A]/80 text-white text-sm sm:text-base border border-[#0A2F80] focus:outline-none focus:ring-2 focus:ring-[#FF1493]/60 focus:border-[#FF1493]">
           <option value="">Sélectionnez une prestation</option>
-          {DATA.gestions.flatMap((g, i) => g.desc.slice(1).map((d, j) => (
+          {DATA.prestations.flatMap((g, i) => g.desc.slice(1).map((d, j) => (
             <option key={`${i}-${j}`} value={`${g.name} - ${d}`}>{g.name} - {d}</option>
           )))}
         </select>
@@ -316,8 +362,8 @@ export default function OnePagePremium() {
       <SiteHeader logoSrc={site.logoSrc} enterprise={site.enterprise}/>
       <Hero title={site.title} description={site.description} />
       <Problems items={problems} />
-      <Offers items={offers} />
       <GestionSliderSection gestions={gestions} />
+      <Offers items={offers} />
       <Testimonials />
       <ContactForm gestions={gestions} email={site.email} phone={site.phone} />
 
