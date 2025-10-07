@@ -24,9 +24,9 @@ const DATA = {
     { icon: Users, text: "Isolement professionnel" },
   ],
   offers: [
-    { name: "Lignée Essentielle", price: "", desc: "8h / mois de gestion selon vos besoins" },
-    { name: "Lignée Signature", price: "", desc: "15h / mois + gestion financière avancée" },
-    { name: "Lignée Prestige", price: "", desc: "30h / mois + gestion de litiges et trésorerie" },
+    { name: "Lignée Essentielle", price: "", desc: "8h / mois de gestion Administrative et RH selon vos besoins" },
+    { name: "Lignée Signature", price: "", desc: "15h / mois + Lignée Essentielle + gestion financière avancée" },
+    { name: "Lignée Prestige", price: "", desc: "30h / mois + Lignée Signature + gestion de litiges et trésorerie" },
     { name: "Hors Lignée", price: "", desc: "Tarification a l'heure" },
   ],
   gestions: [
@@ -181,7 +181,7 @@ const Problems = ({ items }) => (
 
 const Offers = ({ items }) => (
   <section id="offres" className="px-3 sm:px-6 py-10 sm:py-16 max-w-6xl mx-auto">
-    <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] text-center mb-6 sm:mb-10">Mes offres</h2>
+    <h2 className="text-2xl sm:text-3xl font-bold text-[#FF1493] text-center mb-6 sm:mb-10">Mes offres et solutions</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((offer, i) => (
         <Card
