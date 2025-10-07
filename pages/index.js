@@ -368,7 +368,7 @@ export default function OnePagePremium() {
       <ContactForm gestions={gestions} email={site.email} phone={site.phone} />
 
       <footer className="px-4 py-8 text-center text-xs sm:text-sm text-gray-400">
-        © {new Date().getFullYear()} OC Conseil & Solutions — Tous droits réservés
+        © {new Date().getFullYear()} Océ Conseil & Solutions — Tous droits réservés
       </footer>
     </div>
   );
