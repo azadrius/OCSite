@@ -11,7 +11,7 @@ const DATA = {
   site: {
     title: "Optimiser aujourd’hui pour prospérer demain",
     description:
-      "J’accompagne les dirigeants de TPE & PME en France pour transformer leurs blocages d’organisation, de trésorerie et de litiges en leviers de croissance.",
+      "J’accompagne les dirigeants de TPE & PME en France pour transformer leurs blocages d’organisation administratif, de trésorerie et de litiges en leviers de croissance.",
     email: "oc.conseilssolutions@gmail.com",
     enterprise: "Océ Conseils & Solutions",
     phone: "06 65 67 60 12",
