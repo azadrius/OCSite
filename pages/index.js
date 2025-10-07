@@ -13,8 +13,9 @@ const DATA = {
     description:
       "J’accompagne les dirigeants de TPE & PME en France pour transformer leurs blocages d’organisation, de trésorerie et de litiges en leviers de croissance.",
     email: "oc.conseilssolutions@gmail.com",
-    phone: "06 67 65 60 12",
-    logoSrc: "/logo.svg",
+    enterprise: "Océ Conseils & Solutions",
+    phone: "06 65 67 60 12",
+    logoSrc: "/Logo.PNG",
   },
   problems: [
     { icon: BarChart3, text: "Difficultés de trésorerie" },
@@ -30,7 +31,7 @@ const DATA = {
   ],
   gestions: [
     {
-      name: "Gestion Administration / RH",
+      name: "Gestion Administration/RH",
       desc: [
         "Création documents / formulaire interne ou courrier type",
         "Mise en place & Refonte de l'organisation administrative ou RH",
@@ -90,9 +91,10 @@ const SEOHiddenKeywords = ({ keywords }) => (
 /************************
  * Sections (pass global mobile‑first)
  ************************/
-const SiteHeader = ({ logoSrc }) => (
+const SiteHeader = ({ logoSrc, enterprise }) => (
   <header className="w-full py-4 sm:py-6 px-4 flex items-center justify-center">
     <img src={logoSrc} alt="Logo entreprise" className="h-12 sm:h-16 object-contain" />
+    <h1 className="text-lg sm:text-2xl font-bold text-white tracking-wide">{enterprise}</h1>
   </header>
 );
 
@@ -311,7 +313,7 @@ export default function OnePagePremium() {
       <SEOHead title={site.title} description={site.description} keywords={keywords} />
       <SEOHiddenKeywords keywords={keywords} />
 
-      <SiteHeader logoSrc={site.logoSrc} />
+      <SiteHeader logoSrc={site.logoSrc} enterprise={site.enterprise}/>
       <Hero title={site.title} description={site.description} />
       <Problems items={problems} />
       <Offers items={offers} />
