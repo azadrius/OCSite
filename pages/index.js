@@ -145,7 +145,7 @@ const SiteHeader = ({ logoSrc, enterprise }) => (
         className="h-20 sm:h-28 object-contain"
       />
       <h1 className="text-2xl sm:text-4xl font-bold text-white tracking-wide">
-        {companyName}
+        {enterprise}
       </h1>
     </header>
 );
