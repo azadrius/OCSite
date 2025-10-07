@@ -124,4 +124,72 @@ export default async function handler(req, res) {
     logInfo(req, "Validating payload", {
       hasNom: !!nom, hasMail: !!mail, hasMessage: !!message,
       presentiel: !!presentiel, distance: !!distance,
-      prestation
+      prestation: prestation ? String(prestation).slice(0, 120) : "",
+      websiteFilled: !!website, // honeypot
+    });
+
+    // Anti-spam
+    if (website) {
+      logWarn(req, "Honeypot triggered");
+      return res.status(400).json({ error: "Spam détecté" });
+    }
+    if (!startedAt || Date.now() - Number(startedAt) < 3500) {
+      logWarn(req, "Too fast submission (anti-bot)", { elapsedMs: startedAt ? Date.now() - Number(startedAt) : "n/a" });
+      return res.status(400).json({ error: "Soumission trop rapide" });
+    }
+
+    if (!nom || !mail || !message) {
+      logWarn(req, "Missing required fields");
+      return res.status(400).json({ error: "Nom, email et message requis" });
+    }
+
+    const transporter = createTransport(req);
+
+    // Vérifie la connexion SMTP avant d’envoyer
+    try {
+      const ok = await transporter.verify();
+      logInfo(req, "SMTP verify before send", { ok });
+    } catch (e) {
+      logError(req, "SMTP verify before send failed", e);
+      return res.status(502).json({ error: "Connexion SMTP impossible", detail: String(e?.message || e) });
+    }
+
+    const to = process.env.CONTACT_TO || process.env.SMTP_USER;
+    const subject = `Nouveau message site — ${objet || "Sans objet"}`;
+    const html =
+      `<h2>Nouveau message depuis le site</h2>` +
+      `<p><b>Nom :</b> ${escapeHtml(nom)} ${escapeHtml(prenom || "")}</p>` +
+      `<p><b>Email :</b> ${escapeHtml(mail)}</p>` +
+      `<p><b>Téléphone :</b> ${escapeHtml(tel || "")}</p>` +
+      `<p><b>Entreprise :</b> ${escapeHtml(societe || "")} — ${escapeHtml(forme || "")}</p>` +
+      `<p><b>Adresse :</b> ${escapeHtml(adresse || "")}, ${escapeHtml(cp || "")} ${escapeHtml(ville || "")}</p>` +
+      `<p><b>Mode :</b> ${presentiel ? "Présentiel " : ""}${distance ? "À distance" : ""}</p>` +
+      `<p><b>Prestation :</b> ${escapeHtml(prestation || "")}</p>` +
+      `<p><b>Message :</b><br/>${escapeHtml(message || "").replace(/\n/g, "<br/>")}</p>`;
+
+    try {
+      const info = await transporter.sendMail({
+        from: `Site web <${process.env.SMTP_USER}>`, // pour Gmail: doit = SMTP_USER
+        to,
+        subject,
+        html,
+      });
+      logInfo(req, "Mail sent", { messageId: info?.messageId, to: maskEmail(to) });
+      return res.status(200).json({ ok: true });
+    } catch (e) {
+      logError(req, "Mail send failed", e);
+      return res.status(500).json({ error: "Impossible d'envoyer l'email", detail: String(e?.message || e) });
+    }
+  } catch (e) {
+    logError(req, "Unhandled API error", e);
+    return res.status(500).json({ error: "Erreur interne" });
+  }
+}
+
+// -------- helpers --------
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
